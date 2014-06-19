@@ -7,6 +7,7 @@
 //
 
 #import "AttributorViewController.h"
+#import "TextStatsViewController.h"
 
 @interface AttributorViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *body;
@@ -53,6 +54,15 @@
 -(void)usePreferredFonts{
     self.body.font=[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.headline.font=[UIFont preferredFontForTextStyle:UIFontTextStyleHeadline ];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"AnalyzeText"]) {
+        if ([segue.destinationViewController isKindOfClass:[TextStatsViewController class]]) {
+            TextStatsViewController *textAnalyzeVC=(TextStatsViewController *)segue.destinationViewController;
+            textAnalyzeVC.textToAnalyze=self.body.textStorage;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
